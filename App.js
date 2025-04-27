@@ -9,7 +9,7 @@ export default function App() {
   const [displayValue, setDisplayValue] = useState('0');
   const[currentValue, setCurrentValue] = useState(null);
   const[operator,setOperator] = useState(null);
-  const[memory,setMemory] = useState(0);
+  const[memory,setMemory] = useState([]);
 
   const handleNumber = (num) => {
     setDisplayValue(displayValue === '0' ? num : displayValue + num);
@@ -37,9 +37,27 @@ export default function App() {
     setOperator(null);
   };
 
-  const handleMemoryAdd = () => setMemory(m => m + parseFloat(displayValue));
-  const handleMemorySubtract = () => setMemory(m => m - parseFloat(displayValue));
-  const handleMemoryRecall = () => setDisplayValue(memory.toString());
+  const handleMemoryAdd = () => {
+    const num = parseFloat(displayValue);
+    if(!isNaN(num)){
+      setMemory(prev => [...prev,num]);
+    }
+  };
+
+  const handleMemorySubtract = () => {
+    const num = parseFloat(displayValue);
+    if(!isNaN(num)){
+      setMemory(prev => prev.filter(n => n !== num));
+    }
+  };
+
+  const handleMemoryRecall = () => {
+    if(memory.length === 0){
+      setDisplayValue('Memoria Vuota');
+    }else{
+      setDisplayValue(memory.join(', '));
+    }
+  };
 
   const handleDecimal = () => {
     if(!displayValue.includes('.')) {
@@ -74,7 +92,6 @@ export default function App() {
           </View>
         </View>
 
-        {/* Colonna destra - Operazioni */}
         <View style={styles.operationsColumn}>
           {['+', '-', '×', '÷'].map(op => (
             <Button key={op} title={op} color="#2196F3" onPress={() => handleOperator(op)}/>
