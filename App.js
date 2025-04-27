@@ -29,10 +29,18 @@ export default function App() {
 
   const handleEqual = () => {
     if(currentValue === null || operator === null) return;
-
-    const result = eval(`${currentValue} ${operator} ${parseFloat(displayValue)}`);
-
-    setDisplayValue(result.toString());
+  
+    const sanitizedOperator = operator === '×' ? '*' : operator === '÷' ? '/' : operator;
+  
+    const expression = `${currentValue} ${sanitizedOperator} ${parseFloat(displayValue)}`;
+    
+    try {
+      const result = eval(expression);
+      setDisplayValue(result.toString());
+    } catch (error) {
+      setDisplayValue('Errore');
+    }
+    
     setCurrentValue(null);
     setOperator(null);
   };
