@@ -12,12 +12,15 @@ const styles = StyleSheet.create({
         flex: 2,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
-        backgroundColor: '#f5f5f5',
-        marginBottom: 10,
-        padding: 20,
+        backgroundColor: '#2d2d2d',
+        marginBottom: 20,
+        padding: 24,
+        borderRadius: 16,
     },
     text: {
         fontSize: 48,
+        color: '#ffffff',
+        fontWeight: '300',
     },
 });
 

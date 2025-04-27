@@ -114,27 +114,29 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
-    padding: 10,
+    backgroundColor: '#1a1a1a',
+    padding: 20,
     justifyContent: 'flex-start',
   },
   keypad: {
     flex: 7,
     flexDirection: 'row',
-    gap: 8,
+    gap: 12,
+    marginTop: 20,
   },
   leftPanel: {
     flex: 3,
-    justifyContent: 'space-between',
+    gap: 12,
   },
   row: {
     flex: 1,
     flexDirection: 'row',
-    gap: 8,
+    gap: 12,
     minHeight: 80,
   },
   operationsColumn: {
     flex: 1,
-    justifyContent: 'space-between',
+    gap: 12,
+    marginLeft: 12,
   },
 });
