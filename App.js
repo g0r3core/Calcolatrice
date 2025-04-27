@@ -49,56 +49,37 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Display value = {displayValue} />
+      <Display value={displayValue} />
 
+      <View style={styles.row}>
+        <Button title="M+" color="#ffd700" onPress={handleMemoryAdd} />
+        <Button title="M-" color="#ffd700" onPress={handleMemorySubtract} />
+        <Button title="MR" color="#ffd700" onPress={handleMemoryRecall} />
+        <Button title="C" color="#ff4444" onPress={handleClear} />
+      </View>
+      
       <View style={styles.keypad}>
-        <View style={styles.row}>
-          {['7','8','9'].map((num) => (
-            <Button
-            key={num}
-            title={num}
-            onPress={() => handleNumber(num)}
-            />
+        <View style={styles.leftPanel}>
+          {[['7','8','9'], ['4','5','6'], ['1','2','3']].map((row, i) => (
+            <View key={i} style={styles.row}>
+              {row.map(num => (
+                <Button key={num} title={num} onPress={() => handleNumber(num)} />
+              ))}
+            </View>
           ))}
+          
+          <View style={styles.row}>
+            <Button title="0" onPress={() => handleNumber('0')} flex={2} />
+            <Button title="." onPress={handleDecimal} />
+          </View>
         </View>
 
-        <View style={styles.row}>
-          {['4','5','6'].map((num) => (
-            <Button
-              key={num}
-              title={num}
-              onPress={() => handleNumber(num)}
-              />
-          ))}
-        </View>
-
-        <View style={styles.row}>
-          {['1','2','3'].map((num) => (
-            <Button
-              key={num}
-              title={num}
-              onPress={() => handleNumber(num)}
-            />
-          ))}
-        </View>
-
-        <View style={styles.row}>
-          <Button title='M+' color='#ffd700' onPress={handleMemoryAdd}/>
-          <Button title='M-' color='#ffd700' onPress={handleMemorySubtract}/>
-          <Button title='MR' color='#ffd700' onPress={handleMemoryRecall}/>
-          <Button title='C' color='#ff4444' onPress={handleClear}/>
-        </View>
-
-        <View style={styles.row}>
-          <Button title='0' onPress={() => handleNumber('0')} flex={2}/>
-          <Button title='.' onPress={handleDecimal}/>
-          <Button title='=' color='#4CAF50' onPress={handleEqual}/>
-        </View>
-
+        {/* Colonna destra - Operazioni */}
         <View style={styles.operationsColumn}>
-          {['+','-','*','/'].map((op) => (
-            <Button key={op} title={op} color='#2196F3' onPress={() => handleOperator(op)}/>
+          {['+', '-', '×', '÷'].map(op => (
+            <Button key={op} title={op} color="#2196F3" onPress={() => handleOperator(op)}/>
           ))}
+          <Button title="=" color="#4CAF50" onPress={handleEqual} flex={1} />
         </View>
       </View>
     </View>
@@ -108,23 +89,27 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#333',
-    padding: 8,
+    backgroundColor: '#f0f0f0',
+    padding: 10,
     justifyContent: 'flex-start',
   },
   keypad: {
-    flex: 5,
-    justifyContent: 'space-around',
+    flex: 7,
+    flexDirection: 'row',
+    gap: 8,
+  },
+  leftPanel: {
+    flex: 3,
+    justifyContent: 'space-between',
   },
   row: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 5,
+    gap: 8,
+    minHeight: 80,
   },
   operationsColumn: {
     flex: 1,
-    flexDirection: 'column',
-    marginLeft: 8,
+    justifyContent: 'space-between',
   },
 });
